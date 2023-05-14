@@ -24,7 +24,7 @@
       <script>
       // 讀取 CSV 文件並解析為對象陣列
       const books = [];
-      fetch('https://raw.githubusercontent.com/Dr-XYZ/yt/main/ccc.csv')
+      fetch('index.csv')
         .then((response) => response.text())
         .then((csv) => {
           const rows = csv.trim().split('\n');
