@@ -1,0 +1,50 @@
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #eee;
+    border-radius: 8px;
+    padding: 16px;
+    text-decoration: none;
+    color: #333;
+    font-family: Arial, sans-serif;
+    transition: background-color 0.2s ease-in-out;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+    margin-bottom:10px;
+  }
+
+  .container:hover {
+    background-color: #ddd;
+  }
+
+  .text {
+    flex: 1;
+    transition: color 0.2s ease-in-out;
+  }
+
+  h2 {
+    margin: 0;
+    font-size: 24px;
+  }
+
+  p {
+    margin: 0;
+    font-size: 16px;
+  }
+  .box{     
+      width: 160px;
+      height: 90px;
+      overflow: hidden;
+      border-radius: 8px;
+  }
+  img {
+height: 100%;
+width: 100%;
+object-fit: cover;
+object-position: 49.9% 50.1%;
+}
+
+
+  img:hover {
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+  }
