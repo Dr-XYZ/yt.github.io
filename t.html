@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="h.css">
+</head>
+<body>
+ 
+    <div>
+        <!-- 標題 -->
+        <h1>Book Finder</h1>
+        <!-- 搜尋表單 -->
+        <form data-bookfinder-form>
+          <input name="search" type="text" placeholder="請輸入搜尋內容……" />
+          <button type="submit">送出</button>
+        </form>
+        <!-- 搜尋結果 -->
+        <ul data-books></ul>
+      </div>
+      
+      <script>
+      // 讀取 CSV 文件並解析為對象陣列
+      const books = [];
+      fetch('https://raw.githubusercontent.com/Dr-XYZ/yt/main/ccc.csv')
+        .then((response) => response.text())
+        .then((csv) => {
+          const rows = csv.trim().split('\n');
+          const headers = rows.shift().split(',');
+          rows.forEach((row) => {
+            const values = row.split(',');
+            const book = {};
+            headers.forEach((header, i) => (book[header] = values[i]));
+            books.push(book);
+          });
+
+          // 渲染到畫面上
+          renderBooks(generateBookHTML(books));
+        });
+      
+      // 生成 HTML 字符串
+      function generateBookHTML(targetBooks) {
+        return targetBooks
+          .map(
+            (book) =>
+            ` <a href="${book['連結']}" class="container" target="_blank"><div class="text"><h2>${book['標題']}</h2><p>${book['標籤']}</p></div><span class="box"> <img src="https://img.youtube.com/vi/${book['圖片']}/sddefault.jpg" > </span>  </a>`
+          )
+          .join('');
+      }
+      
+      // 渲染到畫面上
+      function renderBooks(targetHTML) {
+        const bookList = document.querySelector('[data-books]');
+        bookList.innerHTML = targetHTML;
+      }
+      
+      // 過濾函式
+      function booksFilter(targetBook, allBooks = books) {
+        if (targetBook.trim() === '') {
+          return allBooks;
+        }
+        return allBooks.filter((book) => {
+          const regex = new RegExp(targetBook, 'i');
+          return Object.values(book).some((value) => regex.test(value));
+        });
+      }
+      
+      // /*
+      // 監聽表單提交事件
+      document.querySelector('[data-bookfinder-form]').addEventListener('submit', (e) => {
+        e.preventDefault();
+        renderBooks(generateBookHTML(booksFilter(e.target.search.value)));
+      });
+      // */
+      
+      </script>
+      
+</body>
+</html>
